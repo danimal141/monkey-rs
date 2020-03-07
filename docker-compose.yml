@@ -4,6 +4,6 @@ services:
     build: .
     volumes:
       - .:/usr/src/app
-      - cargo-cache:/root/.cargo/registry
+      - cargo-cache:/usr/local/cargo/registry
 volumes:
   cargo-cache:
