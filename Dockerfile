@@ -1,4 +1,4 @@
-FROM rust:1.41.0-stretch
+FROM rust:1.41.1-buster
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
