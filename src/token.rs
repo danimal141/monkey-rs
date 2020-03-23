@@ -35,7 +35,7 @@ impl Token {
         let mut str = String::new();
         str.push(ch);
         Token {
-            token_type: token_type,
+            token_type,
             literal: str,
         }
     }
