@@ -1,3 +1,4 @@
+#[derive(Debug, PartialEq)]
 pub enum TokenType {
     Illegal,
     Eof,
@@ -23,7 +24,19 @@ pub enum TokenType {
     Let,
 }
 
+#[derive(Debug, PartialEq)]
 pub struct Token {
     pub token_type: TokenType,
     pub literal: String,
+}
+
+impl Token {
+    pub fn new(token_type: TokenType, ch: char) -> Token {
+        let mut str = String::new();
+        str.push(ch);
+        Token {
+            token_type: token_type,
+            literal: str,
+        }
+    }
 }
