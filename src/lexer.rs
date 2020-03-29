@@ -23,10 +23,30 @@ impl Lexer {
     pub fn next_token(&mut self) -> Token {
         self.skip_whitespace();
         let token = match self.ch {
-            '=' => Token::new(TokenType::Assign, self.ch),
+            '=' => {
+                if self.peek_char() == '=' {
+                    self.read_char();
+                    Token {
+                        token_type: TokenType::Eq,
+                        literal: "==".to_string(),
+                    }
+                } else {
+                    Token::new(TokenType::Assign, self.ch)
+                }
+            }
+            '!' => {
+                if self.peek_char() == '=' {
+                    self.read_char();
+                    Token {
+                        token_type: TokenType::NotEq,
+                        literal: "!=".to_string(),
+                    }
+                } else {
+                    Token::new(TokenType::Bang, self.ch)
+                }
+            }
             '+' => Token::new(TokenType::Plus, self.ch),
             '-' => Token::new(TokenType::Minus, self.ch),
-            '!' => Token::new(TokenType::Bang, self.ch),
             '/' => Token::new(TokenType::Slash, self.ch),
             '*' => Token::new(TokenType::Asterisk, self.ch),
             '<' => Token::new(TokenType::Lt, self.ch),
@@ -65,6 +85,13 @@ impl Lexer {
         }
         self.pos = self.next_pos;
         self.next_pos += 1;
+    }
+
+    fn peek_char(&self) -> char {
+        if self.next_pos >= self.input.len() {
+            return '\0';
+        }
+        self.input.chars().collect::<Vec<char>>()[self.next_pos]
     }
 
     fn read_identifier(&mut self) -> String {
@@ -133,6 +160,9 @@ speculate! {
                 } else {
                     return false;
                 }
+
+                10 == 10;
+                10 != 9;
             "#.to_string();
             let expected_tokens = [
                 ExpectedToken { token_type: TokenType::Let, literal: "let".to_string() },
@@ -207,16 +237,26 @@ speculate! {
                 ExpectedToken { token_type: TokenType::Semicolon, literal: ";".to_string() },
                 ExpectedToken { token_type: TokenType::Rbrace, literal: "}".to_string() },
 
+                ExpectedToken { token_type: TokenType::Int, literal: "10".to_string() },
+                ExpectedToken { token_type: TokenType::Eq, literal: "==".to_string() },
+                ExpectedToken { token_type: TokenType::Int, literal: "10".to_string() },
+                ExpectedToken { token_type: TokenType::Semicolon, literal: ";".to_string() },
+
+                ExpectedToken { token_type: TokenType::Int, literal: "10".to_string() },
+                ExpectedToken { token_type: TokenType::NotEq, literal: "!=".to_string() },
+                ExpectedToken { token_type: TokenType::Int, literal: "9".to_string() },
+                ExpectedToken { token_type: TokenType::Semicolon, literal: ";".to_string() },
+
                 ExpectedToken { token_type: TokenType::Eof, literal: "\0".to_string() },
             ];
             let mut lexer = Lexer::new(input);
         }
 
         it "should return the correct tokens from the passed literals" {
-            for expected_token in expected_tokens.iter() {
-                let current = lexer.next_token();
-                assert_eq!(current.token_type, expected_token.token_type);
-                assert_eq!(current.literal, expected_token.literal);
+            for expected in expected_tokens.iter() {
+                let actual = lexer.next_token();
+                assert_eq!(actual.token_type, expected.token_type);
+                assert_eq!(actual.literal, expected.literal);
             }
         }
     }
