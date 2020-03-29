@@ -22,7 +22,7 @@ impl Lexer {
 
     pub fn next_token(&mut self) -> Token {
         self.skip_whitespace();
-        let token: Token = match self.ch {
+        let token = match self.ch {
             '=' => Token::new(TokenType::Assign, self.ch),
             ';' => Token::new(TokenType::Semicolon, self.ch),
             '(' => Token::new(TokenType::Lparen, self.ch),
