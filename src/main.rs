@@ -1,12 +1,10 @@
-fn main() {
-    println!("Hello, world!");
-}
+use std::io;
 
-#[cfg(test)]
-mod tests {
-    #[test]
-    // TODO: Remove
-    fn sample_test() {
-        assert_eq!(1 + 2, 3);
-    }
+use monkey::repl;
+
+fn main() {
+    println!("Hello! This is the Monkey programming language!");
+    println!("Feel free to type in commands");
+
+    repl::start(io::stdin(), io::stdout());
 }
