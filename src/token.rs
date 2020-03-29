@@ -53,11 +53,11 @@ impl Token {
         }
     }
 
-    pub fn new_with_literal(literal: String) -> Token {
-        let token_type = lookup_token_type(&literal);
+    pub fn from_identifier(ident: String) -> Token {
+        let token_type = lookup_token_type(&ident);
         Token {
             token_type,
-            literal: literal,
+            literal: ident,
         }
     }
 }

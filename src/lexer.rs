@@ -60,8 +60,8 @@ impl Lexer {
             '\0' => Token::new(TokenType::Eof, self.ch),
             _ => {
                 if self.is_letter() {
-                    let literal = self.read_identifier();
-                    return Token::new_with_literal(literal);
+                    let ident = self.read_identifier();
+                    return Token::from_identifier(ident);
                 } else if self.is_digit() {
                     let literal = self.read_number();
                     return Token {
