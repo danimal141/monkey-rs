@@ -28,6 +28,11 @@ pub enum TokenType {
     // Keywords
     Function,
     Let,
+    True,
+    False,
+    If,
+    Else,
+    Return,
 }
 
 #[derive(Debug, PartialEq)]
@@ -59,6 +64,11 @@ fn lookup_token_type(ident: &str) -> TokenType {
     match ident {
         "let" => TokenType::Let,
         "fn" => TokenType::Function,
+        "true" => TokenType::True,
+        "false" => TokenType::False,
+        "if" => TokenType::If,
+        "else" => TokenType::Else,
+        "return" => TokenType::Return,
         _ => TokenType::Ident,
     }
 }

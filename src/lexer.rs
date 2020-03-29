@@ -127,6 +127,12 @@ speculate! {
 
                 !-/*5;
                 5 < 10 > 5;
+
+                if (5 < 10) {
+                    return true;
+                } else {
+                    return false;
+                }
             "#.to_string();
             let expected_tokens = [
                 ExpectedToken { token_type: TokenType::Let, literal: "let".to_string() },
@@ -182,6 +188,24 @@ speculate! {
                 ExpectedToken { token_type: TokenType::Gt, literal: ">".to_string() },
                 ExpectedToken { token_type: TokenType::Int, literal: "5".to_string() },
                 ExpectedToken { token_type: TokenType::Semicolon, literal: ";".to_string() },
+
+                ExpectedToken { token_type: TokenType::If, literal: "if".to_string() },
+                ExpectedToken { token_type: TokenType::Lparen, literal: "(".to_string() },
+                ExpectedToken { token_type: TokenType::Int, literal: "5".to_string() },
+                ExpectedToken { token_type: TokenType::Lt, literal: "<".to_string() },
+                ExpectedToken { token_type: TokenType::Int, literal: "10".to_string() },
+                ExpectedToken { token_type: TokenType::Rparen, literal: ")".to_string() },
+                ExpectedToken { token_type: TokenType::Lbrace, literal: "{".to_string() },
+                ExpectedToken { token_type: TokenType::Return, literal: "return".to_string() },
+                ExpectedToken { token_type: TokenType::True, literal: "true".to_string() },
+                ExpectedToken { token_type: TokenType::Semicolon, literal: ";".to_string() },
+                ExpectedToken { token_type: TokenType::Rbrace, literal: "}".to_string() },
+                ExpectedToken { token_type: TokenType::Else, literal: "else".to_string() },
+                ExpectedToken { token_type: TokenType::Lbrace, literal: "{".to_string() },
+                ExpectedToken { token_type: TokenType::Return, literal: "return".to_string() },
+                ExpectedToken { token_type: TokenType::False, literal: "false".to_string() },
+                ExpectedToken { token_type: TokenType::Semicolon, literal: ";".to_string() },
+                ExpectedToken { token_type: TokenType::Rbrace, literal: "}".to_string() },
 
                 ExpectedToken { token_type: TokenType::Eof, literal: "\0".to_string() },
             ];
