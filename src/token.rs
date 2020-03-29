@@ -10,6 +10,12 @@ pub enum TokenType {
     // Operators
     Assign,
     Plus,
+    Minus,
+    Bang,
+    Asterisk,
+    Slash,
+    Lt,
+    Gt,
 
     // Delimiters
     Comma,
@@ -34,7 +40,6 @@ impl Token {
     pub fn new(token_type: TokenType, ch: char) -> Token {
         let mut str = String::new();
         str.push(ch);
-
         Token {
             token_type,
             literal: str,
@@ -42,15 +47,18 @@ impl Token {
     }
 
     pub fn new_with_literal(literal: String) -> Token {
-        let token_type = match literal.as_str() {
-            "let" => TokenType::Let,
-            "fn" => TokenType::Function,
-            _ => TokenType::Ident,
-        };
-
+        let token_type = lookup_token_type(&literal);
         Token {
             token_type,
-            literal,
+            literal: literal,
         }
+    }
+}
+
+fn lookup_token_type(ident: &str) -> TokenType {
+    match ident {
+        "let" => TokenType::Let,
+        "fn" => TokenType::Function,
+        _ => TokenType::Ident,
     }
 }

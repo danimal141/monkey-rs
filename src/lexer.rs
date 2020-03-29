@@ -24,11 +24,17 @@ impl Lexer {
         self.skip_whitespace();
         let token = match self.ch {
             '=' => Token::new(TokenType::Assign, self.ch),
+            '+' => Token::new(TokenType::Plus, self.ch),
+            '-' => Token::new(TokenType::Minus, self.ch),
+            '!' => Token::new(TokenType::Bang, self.ch),
+            '/' => Token::new(TokenType::Slash, self.ch),
+            '*' => Token::new(TokenType::Asterisk, self.ch),
+            '<' => Token::new(TokenType::Lt, self.ch),
+            '>' => Token::new(TokenType::Gt, self.ch),
             ';' => Token::new(TokenType::Semicolon, self.ch),
             '(' => Token::new(TokenType::Lparen, self.ch),
             ')' => Token::new(TokenType::Rparen, self.ch),
             ',' => Token::new(TokenType::Comma, self.ch),
-            '+' => Token::new(TokenType::Plus, self.ch),
             '{' => Token::new(TokenType::Lbrace, self.ch),
             '}' => Token::new(TokenType::Rbrace, self.ch),
             '\0' => Token::new(TokenType::Eof, self.ch),
@@ -118,6 +124,9 @@ speculate! {
                     x + y;
                 };
                 let result = add(five, ten);
+
+                !-/*5;
+                5 < 10 > 5;
             "#.to_string();
             let expected_tokens = [
                 ExpectedToken { token_type: TokenType::Let, literal: "let".to_string() },
@@ -158,6 +167,20 @@ speculate! {
                 ExpectedToken { token_type: TokenType::Comma, literal: ",".to_string() },
                 ExpectedToken { token_type: TokenType::Ident, literal: "ten".to_string() },
                 ExpectedToken { token_type: TokenType::Rparen, literal: ")".to_string() },
+                ExpectedToken { token_type: TokenType::Semicolon, literal: ";".to_string() },
+
+                ExpectedToken { token_type: TokenType::Bang, literal: "!".to_string() },
+                ExpectedToken { token_type: TokenType::Minus, literal: "-".to_string() },
+                ExpectedToken { token_type: TokenType::Slash, literal: "/".to_string() },
+                ExpectedToken { token_type: TokenType::Asterisk, literal: "*".to_string() },
+                ExpectedToken { token_type: TokenType::Int, literal: "5".to_string() },
+                ExpectedToken { token_type: TokenType::Semicolon, literal: ";".to_string() },
+
+                ExpectedToken { token_type: TokenType::Int, literal: "5".to_string() },
+                ExpectedToken { token_type: TokenType::Lt, literal: "<".to_string() },
+                ExpectedToken { token_type: TokenType::Int, literal: "10".to_string() },
+                ExpectedToken { token_type: TokenType::Gt, literal: ">".to_string() },
+                ExpectedToken { token_type: TokenType::Int, literal: "5".to_string() },
                 ExpectedToken { token_type: TokenType::Semicolon, literal: ";".to_string() },
 
                 ExpectedToken { token_type: TokenType::Eof, literal: "\0".to_string() },
