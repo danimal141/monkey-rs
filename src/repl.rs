@@ -1,4 +1,5 @@
 use std::io::*;
+use std::process::*;
 
 use crate::lexer::Lexer;
 use crate::token::TokenType;
@@ -15,6 +16,9 @@ pub fn start(stdin: Stdin, stdout: Stdout) {
         let mut lexer = Lexer::new(line);
         loop {
             let token = lexer.next_token();
+            if token.literal == "exit" {
+                exit(0);
+            }
             match token.token_type {
                 TokenType::Eof => break,
                 _ => out.write_all(format!("{:?}\n", token).as_bytes()).unwrap(),
