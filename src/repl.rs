@@ -17,9 +17,7 @@ pub fn start(stdin: Stdin, stdout: Stdout) {
             let token = lexer.next_token();
             match token.token_type {
                 TokenType::Eof => break,
-                _ => {
-                    out.write_all(format!("{:?}\n", token).as_bytes()).unwrap();
-                }
+                _ => out.write_all(format!("{:?}\n", token).as_bytes()).unwrap(),
             }
         }
         out.flush().unwrap();
