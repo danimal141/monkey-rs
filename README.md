@@ -2,13 +2,22 @@
 
 This is my monkey programming language project inspired by [Writing An Interpreter In Go](https://interpreterbook.com/).
 
+## Dependencies
+- Docker
+
 ## How to develop
 ### Build / Run
 - `bin/run-container cargo build`
 - `bin/run-container cargo run`
 
 ### Lint
-- `bin/run-container cargo clippy`
+- `bin/run-container cargo clippy --`
+
+If you want the build to fail when encountering warnings, please use `bin/run-container cargo clippy -- -D warnings`.
+
+### Format
+
+- `bin/run-container cargo fmt -- --check`
 
 ### Test
 - `bin/run-container cargo test`
