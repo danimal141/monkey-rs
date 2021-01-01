@@ -2,6 +2,20 @@
 
 This is my monkey programming language project inspired by [Writing An Interpreter In Go](https://interpreterbook.com/).
 
+```
+　　　　＿ツ)_
+　　 _／　　　＼_
+　　(/ ／⌒⌒＼∧)
+　　｜((●　●))｜
+　　人∧　||　/ 人
+　 /　 (　‥　)　∧
+　｜　 ヽ二二ノ　 ｜
+　∧　＼　　　／　∧
+ (　＼　＼　／　／　)
+　＼へ＼ミ)(ミ／へ／
+　 (ミ　￣)(￣　ミ)
+```
+
 ## Dependencies
 - Docker
 
