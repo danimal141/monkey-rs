@@ -1,4 +1,4 @@
-FROM rust:1.41.1-buster
+FROM rust:1.49-buster
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
