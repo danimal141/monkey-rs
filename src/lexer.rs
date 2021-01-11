@@ -125,7 +125,7 @@ mod tests {
     use crate::token::Token;
 
     #[test]
-    fn text_next_token() {
+    fn test_next_token() {
         let input = r#"
             let five = 5;
             let ten = 10;
