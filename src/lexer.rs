@@ -55,7 +55,7 @@ impl<'a> Lexer<'a> {
             _ => {
                 if self.is_letter() {
                     let ident = self.read_identifier();
-                    return Token::lookup_token_type(&ident);
+                    return Token::lookup_token(&ident);
                 } else if self.is_digit() {
                     let number = self.read_number();
                     return Token::Int(number);
