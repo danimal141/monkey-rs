@@ -2,7 +2,7 @@ use std::io::*;
 use std::process::*;
 
 use crate::lexer::Lexer;
-use crate::token::TokenType;
+use crate::token::Token;
 
 pub fn start(stdin: Stdin, stdout: Stdout) {
     loop {
@@ -13,14 +13,15 @@ pub fn start(stdin: Stdin, stdout: Stdout) {
         let mut line = String::new();
         stdin.read_line(&mut line).expect("Failed to read line...");
 
-        let mut lexer = Lexer::new(line);
+        let mut lexer = Lexer::new(&line);
         loop {
             let token = lexer.next_token();
-            if token.literal == "exit" {
+            if token == Token::Ident("exit".to_string()) {
+                println!("See you!!");
                 exit(0);
             }
-            match token.token_type {
-                TokenType::Eof => break,
+            match token {
+                Token::Eof => break,
                 _ => out.write_all(format!("{:?}\n", token).as_bytes()).unwrap(),
             }
         }
